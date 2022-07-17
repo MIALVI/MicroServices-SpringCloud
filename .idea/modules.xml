@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/SpringBootMicroServices.iml" filepath="$PROJECT_DIR$/.idea/SpringBootMicroServices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/centerapp/centerapp.iml" filepath="$PROJECT_DIR$/centerapp/centerapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cinemaapp/cinemaapp.iml" filepath="$PROJECT_DIR$/cinemaapp/cinemaapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pandaapp/pandaapp.iml" filepath="$PROJECT_DIR$/pandaapp/pandaapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/userapp/userapp.iml" filepath="$PROJECT_DIR$/userapp/userapp.iml" />
+    </modules>
+  </component>
+</project>
