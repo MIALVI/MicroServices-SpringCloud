@@ -34,33 +34,32 @@ public class CinemaController {
         return ResponseEntity.ok("Cinema Service World");
     }
 
-    @GetMapping(value = "/movies-list")
+    @GetMapping(value = "/movies")
     private ResponseEntity<List<MovieDTO>> returnMovieList() {
         return ResponseEntity.ok(cinemaService.findMovies());
     }
 
-    @GetMapping(value = "/get-movie/{id}")
+    @GetMapping(value = "/movie/{id}")
     private ResponseEntity<MovieDTO> getMovie(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(cinemaService.findMovie(id));
     }
 
-    @PutMapping(value = "/cancel-booking")
+    @PutMapping(value = "/cancel")
     private ResponseEntity<MovieDTO> cancelBooking(@RequestBody long id){
         return ResponseEntity.ok(cinemaService.findMovie(id));
     }
 
-    @PutMapping(value = "/movie-booking")
+    @PutMapping(value = "/movies/book")
     private ResponseEntity<List<MovieDTO>> bookMovies(@RequestBody long id,List<MovieDTO> movieDTOList){
         return ResponseEntity.ok(cinemaService.bookMovies(id,movieDTOList));
     }
 
-    @PostMapping(value = "/add-movie")
+    @PostMapping(value = "/movie/insert")
     private ResponseEntity<MovieDTO> addMovie(@RequestBody MovieDTO movieDTO){
-        System.out.println(movieDTO);
-        return ResponseEntity.ok(movieMapper.entityToDto(cinemaService.addMovie(movieDTO)));
+        return ResponseEntity.ok(cinemaService.addMovie(movieDTO));
     }
 
-    @PostMapping(value = "/book-movie")
+    @PostMapping(value = "/movie/book")
     private ResponseEntity<BookingDetailsDTO> bookMovie(@RequestBody int quantity, CustomerDTO customerDTO, MovieDTO movieDTO){
         return ResponseEntity.ok(cinemaService.bookMovie(quantity, customerDTO, movieDTO));
     }

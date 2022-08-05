@@ -42,19 +42,16 @@ public class CinemaServiceImpl implements CinemaService {
     private MovieMapper movieMapper;
 
     @Override
-    public Movie addMovie(MovieDTO movieDTO) {
-       Movie movie = new Movie();
-       movie.setName(movieDTO.getName());
-       movie.setRatings(movieDTO.getRatings());
-        return movieRespository.save(movie);
+    public MovieDTO addMovie(MovieDTO movieDTO) {
+        return movieMapper.entityToDto(movieRespository.save(movieMapper.dtoToEntity(movieDTO)));
     }
 
     @Override
-    public BookingDetailsDTO bookMovie(int quantity, CustomerDTO customerDTO, MovieDTO movieDTO) {
+    public BookingDetailsDTO bookMovie(int quantity, CustomerDTO customerDTOList, MovieDTO movieDTO) {
         BookingDetails bookingDetails = new BookingDetails();
         bookingDetails.setQuantity(quantity);
-        bookingDetails.setCustomer(customerMapper.dtoToEntity(customerDTO));
-        bookingDetails.setMovie(movieMapper.dtoToEntity(movieDTO));
+        bookingDetails.setCustomers(customerMapper.dtoToEntity(customerDTOList));
+        bookingDetails.setMovies(movieMapper.dtoToEntity(movieDTO));
         return bookingDetailsMapper.entityToDto(bookingDetailsRepository.save(bookingDetails));
     }
 
@@ -63,8 +60,7 @@ public class CinemaServiceImpl implements CinemaService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new MovieNotFound(404, "Not Found", "Movie not exist"));
         if (customer.equals(null)) {
             return false;
-        } else {
-            customer.getMovies().stream().filter(movie -> movie.getId() != movieId).toList();
+        } else if(customer.getMovies().getId() != movieId){
             customerRepository.save(customer);
         }
         return true;
@@ -79,8 +75,8 @@ public class CinemaServiceImpl implements CinemaService {
         }
         movies.stream().forEach(movie -> {
             bookingDetails.setQuantity(movies.size());
-            bookingDetails.setCustomer(customerMapper.entityToDto(customer));
-            bookingDetails.setMovie(movieMapper.dtoToEntity(movie));
+            bookingDetails.setCustomers(customerMapper.entityToDto(customer));
+            bookingDetails.setMovies(movieMapper.dtoToEntity(movie));
             bookingDetailsRepository.save(bookingDetails);
         });
         return movies;

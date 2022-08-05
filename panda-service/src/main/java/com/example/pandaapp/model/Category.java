@@ -3,6 +3,7 @@ package com.example.pandaapp.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Data
@@ -13,9 +14,9 @@ public class Category {
     private long id;
 
     @Column(name = "title")
+    @NotBlank
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name="food_id", nullable=false)
+    @ManyToOne(targetEntity = Food.class)
     private Food foodOrder;
 }

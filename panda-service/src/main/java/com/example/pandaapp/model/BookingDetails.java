@@ -17,11 +17,11 @@ public class BookingDetails {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id")
-    private Food foodOrder;
+    @ManyToOne(targetEntity = Food.class)
+    @JoinColumn
+    private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Customer customer;
+    @OneToOne(targetEntity = Customer.class)
+    @JoinColumn
+    private Customer customers;
 }

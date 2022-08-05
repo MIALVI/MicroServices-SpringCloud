@@ -5,16 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name="movies")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "movie_id")
-    @NonNull
     private long id;
 
     @Column(name = "movie_name")

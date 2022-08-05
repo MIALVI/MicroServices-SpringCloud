@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CinemaService {
 
-    Movie addMovie(MovieDTO movieDTO);
+    MovieDTO addMovie(MovieDTO movieDTO);
 
     BookingDetailsDTO bookMovie(int quantity, CustomerDTO customerDTO, MovieDTO movieDTO);
 

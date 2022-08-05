@@ -27,7 +27,6 @@ public class Customer {
     @Column(name = "customer_age")
     private short age;
 
-    @OneToMany
-    @JoinColumn(name = "movie_id")
-    private List<Movie> movies;
+    @ManyToOne(targetEntity = Movie.class)
+    private Movie movies;
 }

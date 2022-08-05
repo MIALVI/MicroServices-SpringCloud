@@ -12,6 +12,7 @@ import com.example.pandaapp.mapper.FoodMapper;
 import com.example.pandaapp.model.BookingDetails;
 import com.example.pandaapp.model.Category;
 import com.example.pandaapp.model.Customer;
+import com.example.pandaapp.model.Food;
 import com.example.pandaapp.repository.BookingDetailsRepository;
 import com.example.pandaapp.repository.CategoryRepository;
 import com.example.pandaapp.repository.CustomerRepository;
@@ -51,8 +52,8 @@ public class PandaServiceImpl implements PandaService {
     private FoodMapper foodMapper;
 
     @Override
-    public FoodDTO addFood(FoodDTO foodDTO) {
-        return foodMapper.entityToDto(foodOrderRepository.save(foodMapper.dtoToEntity(foodDTO)));
+    public Food addFood(Food food) {
+        return foodOrderRepository.save(food);
     }
 
     @Override
@@ -60,8 +61,7 @@ public class PandaServiceImpl implements PandaService {
         Customer customer = customerRepository.findById(id).orElseThrow(() -> new CustomerNotFound(404, "Not Found", "Customer not exist"));
         if (customer.equals(null)) {
             return false;
-        } else {
-            customer.getFoodOrderList().stream().filter(food -> food.getId() != id).toList();
+        } else if(customer.getFood().getId() != id){
             customerRepository.save(customer);
         }
         return true;
@@ -81,8 +81,8 @@ public class PandaServiceImpl implements PandaService {
     public BookingDetailsDTO orderFood(int quantity, CustomerDTO customerDTO, FoodDTO foodDTO) {
         BookingDetails bookingDetails = new BookingDetails();
         bookingDetails.setQuantity(quantity);
-        bookingDetails.setCustomer(customerMapper.dtoToEntity(customerDTO));
-        bookingDetails.setFoodOrder(foodMapper.dtoToEntity(foodDTO));
+        bookingDetails.setCustomers(customerMapper.dtoToEntity(customerDTO));
+        bookingDetails.setFood(foodMapper.dtoToEntity(foodDTO));
         return bookingDetailsMapper.entityToDto(bookingDetailsRepository.save(bookingDetails));
     }
 

@@ -3,6 +3,7 @@ package com.example.cinemaapp.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,11 +18,11 @@ public class BookingDetails {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
+    @ManyToOne(targetEntity = Movie.class)
+    @JoinColumn
+    private Movie movies;
 
-    @JoinColumn(name = "customer_id")
-    @ManyToOne
-    private Customer customer;
+    @OneToOne(targetEntity = Customer.class)
+    @JoinColumn
+    private Customer customers;
 }
